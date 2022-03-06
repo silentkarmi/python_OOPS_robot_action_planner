@@ -37,3 +37,21 @@ class Planner:
     
     def generate_plan(self):
         print("Generating Plan")
+        
+        # pick_tray_yellow
+        # place_tray_yellow
+        # search_part_in_bins
+        # get part from the bin according to robot type
+        # place part in agv
+        # ship agv
+        
+        callbacks = []
+    
+    def which_bins_are_empty(self):
+        bins_availabe = []
+        for bin in self.bins:
+            if not bin.parts:
+                bins_availabe.append(bin.id)
+        
+        return bins_availabe
+        
