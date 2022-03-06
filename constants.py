@@ -1,3 +1,5 @@
+""" All the global constanst are defined here
+"""
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
@@ -10,10 +12,10 @@ class Const:
     PART_RED = "red_part"
     PART_BLUE = "blue_part"
     PART_GREEN = "green_part"
-    
+
     TRAY_YELLOW = "yellow_tray"
     TRAY_GRAY = "gray_tray"
-    
+
     AS1 = "as1"
     AS2 = "as2"
     AS3 = "as3"
