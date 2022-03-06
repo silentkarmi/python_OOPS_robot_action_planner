@@ -2,6 +2,7 @@
 # Author @ Kartikeya Mishra
 
 from dataclasses import dataclass
+from utility import print_error
 
 from robot import Robot  
 
@@ -19,4 +20,14 @@ class RobotFloor(Robot):
         if self.isGripperEmpty() and self.is_this_bin_supported(bin.id):
             self.gripper_object = bin.get_part()
         else:
-            print("Gripper is holding a object already.")
+            print_error("Gripper is holding a object already.")
+            
+    def place_part(self, agv):
+        if self.gripper_object == None:
+            print_error("Nothing to place")
+        else:
+            if agv == None or agv.tray == None:
+                print_error("No Tray Found!")
+            else:
+                agv.tray.parts.append(self.gripper_object)
+                self.gripper_object = None

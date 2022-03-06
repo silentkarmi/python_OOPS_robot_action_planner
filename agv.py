@@ -3,6 +3,7 @@
 
 from constants import Const
 from typing import Any
+from utility import print_success
 
 class AGV:
     id : int
@@ -18,7 +19,11 @@ class AGV:
         elif id == 3 or id == 4:
             return station == Const.AS3 or station == Const.AS4
     
-    def ship(self, to_the_station):
-        print(f"agv{str(id)}, {self.tray.type}, {to_the_station}")
-        print(f"{self.tray.type} contains following items: {self.tray.parts}")
+    def ship(self, station):
+        print_success(f"AGV={self.id} contains {self.tray}")
+        print_success(f"{self.tray.type} contains following items: {self.tray.parts}")
+        print_success(f"Shipped to Assembly Station: {station.id}")
+        
+    def __str__(self) -> str:
+        return f"AGV(id={str(self.id)})"
             

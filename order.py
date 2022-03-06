@@ -2,7 +2,6 @@
 # Author @ Kartikeya Mishra
 
 from dataclasses import dataclass
-from utility import print_error
 
 @dataclass
 class Order:
@@ -10,5 +9,6 @@ class Order:
     as_id : int
     tray_type : str
     red_parts : int = 0
-    blue_parts : int = 0
     green_parts : int = 0
+    blue_parts : int = 0
+    

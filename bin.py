@@ -21,19 +21,10 @@ class Bin:
             
             # if list empty we change the bin type to None
             # now, it can store any part type
-            if self.parts.isEmpty():
+            if not self.parts:
                 self.type = None
         
         return part
-        
-    # def _place_part(self, part):
-    #     if self.parts.isEmpty():
-    #         self.type = part.type
-        
-    #     if self.type == part.type:
-    #         self.parts.append(part)
-    #     else:
-    #         print("This part type can't be stored with parts of other type in the same bin.")
             
     def store_parts(self, parts):
         success = False
@@ -51,4 +42,7 @@ class Bin:
             print_error("This part type can't be stored with parts of other type in the same bin.")
         
         return success
+    
+    def __str__(self) -> str:
+        return f"Bin(id={str(self.id)}, part_type={self.type})"
     

@@ -10,3 +10,7 @@ class Tray:
     
     def __init__(self, type) -> None:
         self.type = type
+        self.parts = []
+        
+    def __str__(self) -> str:
+        return f"Tray(type = {self.type})"

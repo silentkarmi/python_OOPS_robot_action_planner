@@ -1,16 +1,19 @@
 from colorama import Fore
 from constants import Const
-
 from part import Part
+from order import Order
 
 def print_error(text):
     print(Fore.RED, text)
+
+def print_success(text):
+    print(Fore.GREEN, text)
     
 def print_normal(text):
-    print(Fore.WHITE, text)
+    print(Fore.WHITE, text, end="")
     
 def print_partition():
-    print_normal("="*75)
+    print(Fore.WHITE, "="*75)
 
 def create_parts(num_of_parts, part_type):
     parts = []
@@ -23,8 +26,8 @@ def ask_part(part_type, obj_planner):
     total_parts = 0
     
     while True:
-        print_normal("How many " + part_type + "s in the workcell [0, 4 - 9]?")
-        total_parts = 5
+        print_normal("How many " + part_type + "s in the workcell [0, 4 - 9]? ")
+        total_parts = int(input())
                 
         if total_parts == 0 or (total_parts > 3 and total_parts < 10):
             if total_parts != 0:
@@ -33,8 +36,8 @@ def ask_part(part_type, obj_planner):
                 success = False
                 lst_empty_bin_ids = obj_planner.which_bins_are_empty()
                 while not success:
-                    print_normal("In which bin are these " + part_type + "s located " + ids_to_string(lst_empty_bin_ids) + "?")
-                    bin_id = 1
+                    print_normal("In which bin are these " + part_type + "s located " + ids_to_string(lst_empty_bin_ids) + "? ")
+                    bin_id = int(input())
                     if bin_id in lst_empty_bin_ids:
                         success = obj_planner.bins[bin_id - 1].store_parts(parts)
                         return len(parts)
@@ -47,8 +50,8 @@ def ask_part(part_type, obj_planner):
             
 def ask_order_tray():
     while True:
-        print_normal("Which tray to use? [(y)ellow, (g)ray]?")
-        tray_type = 'g'
+        print_normal("Which tray to use? [(y)ellow, (g)ray]? ")
+        tray_type = input()
         if tray_type == 'y':
             return Const.TRAY_YELLOW
         elif tray_type == 'g':
@@ -56,23 +59,13 @@ def ask_order_tray():
         else:
             print_error("Invalid Tray Type")
             
-def ask_which_agv_and_station():
-    while True:
-        print_normal("Which tray to use? [(y)ellow, (g)ray]?")
-        tray_type = 'g'
-        if tray_type == 'y':
-            return Const.TRAY_YELLOW
-        elif tray_type == 'g':
-            return Const.TRAY_GRAY
-        else:
-            print_error("Invalid Tray Type")
-            
+           
 def ask_which_agv_for_order():
     lst_agv_ids = [1, 2, 3, 4]
     
     while True:
-        print_normal("Which AGV to use " + ids_to_string(lst_agv_ids) +" ?")
-        agv_id = 3
+        print_normal("Which AGV to use " + ids_to_string(lst_agv_ids) +" ? ")
+        agv_id = int(input())
         if agv_id in lst_agv_ids:
             while True:
                 lst_as_stations = []
@@ -82,9 +75,9 @@ def ask_which_agv_for_order():
                     lst_as_stations = [3,4]
                     
                 print_normal("Which assembly station to ship agv" + str(agv_id)
-                             + " " + ids_to_string(lst_as_stations) + "?")
+                             + " " + ids_to_string(lst_as_stations) + "? ")
                 
-                as_id = 3
+                as_id = int(input())
                 
                 if as_id in lst_as_stations:
                     return agv_id, as_id
@@ -97,8 +90,8 @@ def ask_how_many_parts_in_tray(part_type):
     parts_total = [0, 1, 2]
     
     while True:
-        print_normal("How many " + part_type + "s in tray " + ids_to_string(parts_total) + "?")
-        parts_in_kit = 2
+        print_normal("How many " + part_type + "s in tray " + ids_to_string(parts_total) + "? ")
+        parts_in_kit = int(input())
         if parts_in_kit in parts_total:
             return parts_in_kit
         else:
@@ -113,3 +106,33 @@ def ids_to_string(list):
     
     return string_ids
         
+def ask_for_order(planner):
+    print_partition()
+    red_parts_in_workcell = ask_part(Const.PART_RED, planner)
+    green_parts_in_workcell = ask_part(Const.PART_GREEN, planner)
+    blue_parts_in_workcell = ask_part(Const.PART_BLUE, planner)
+    
+    print_partition()
+    tray_type = ask_order_tray()
+    print_partition()
+    agv_id, as_id = ask_which_agv_for_order()
+    print_partition()
+    red_parts_in_kit = 0
+    green_parts_in_kit = 0
+    blue_parts_in_kit = 0
+    
+    if red_parts_in_workcell:
+        red_parts_in_kit = ask_how_many_parts_in_tray(Const.PART_RED)
+    
+    if green_parts_in_workcell:
+        green_parts_in_kit = ask_how_many_parts_in_tray(Const.PART_GREEN)
+        
+    if blue_parts_in_workcell:
+        blue_parts_in_kit = ask_how_many_parts_in_tray(Const.PART_BLUE)
+    
+    print_partition()
+    
+    order = Order(agv_id, as_id, tray_type, 
+                  red_parts_in_kit, green_parts_in_kit, blue_parts_in_kit)
+    
+    return order
