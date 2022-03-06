@@ -6,11 +6,15 @@ from typing import Any
 from agv import AGV
 from bin import Bin
 from constants import Const
+from order import Order
 from robot_ceiling import RobotCeiling
 from robot_floor import RobotFloor
 
 from table import Table
 from tray import Tray
+
+import inspect as i
+import sys
 
 @dataclass
 class Planner:
@@ -35,9 +39,20 @@ class Planner:
             self.agvs.append(AGV(i))
             self.bins.append(Bin(i))
     
-    def generate_plan(self):
+    def generate_plan(self, order):
         print("Generating Plan")
         
+        callbacks = {}
+        if isinstance(order, Order):
+            if order.tray_type == Const.TRAY_GRAY:
+                callbacks.update({self.robot_gantry.pickup_tray :
+                    self.table_gray})
+                
+                for key, value in callbacks.items():
+                    function_source = (i.getsource(key)).split('\n')
+                    function_defintion = function_source[0]
+                    print(function_defintion, value)
+                    key(value)
         # pick_tray_yellow
         # place_tray_yellow
         # search_part_in_bins
@@ -45,7 +60,7 @@ class Planner:
         # place part in agv
         # ship agv
         
-        callbacks = []
+        
     
     def which_bins_are_empty(self):
         bins_availabe = []

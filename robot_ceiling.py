@@ -9,6 +9,9 @@ from robot import Robot
 class RobotCeiling(Robot):
     _bins_supported = (3, 4)
     
+    def __init__(self) -> None:
+        super().__init__()
+    
     def is_this_bin_supported(self, id):
         return id in RobotCeiling._bins_supported
     

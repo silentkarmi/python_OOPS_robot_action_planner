@@ -14,3 +14,6 @@ class Table:
         obj_tray = self.tray
         self.tray = None
         return obj_tray
+    
+    def __str__(self) -> str:
+        return "Table(" + self.tray.type + ")"

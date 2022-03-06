@@ -6,7 +6,7 @@ from typing import Any
 
 @dataclass
 class Robot:
-    # gripper_object : Any
+    gripper_object : Any
     
     def __init__(self) -> None:
         self.gripper_object = None

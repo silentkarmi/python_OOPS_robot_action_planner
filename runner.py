@@ -2,6 +2,7 @@
 # Author @ Kartikeya Mishra
 
 from constants import Const
+from order import Order
 from planner import Planner
 from utility import print_partition
 from utility import ask_part
@@ -38,8 +39,10 @@ def main_func():
         green_parts_in_kit = ask_how_many_parts_in_tray(Const.PART_GREEN)
     print_partition()
     
+    order = Order(agv_id, as_id, tray_type, 
+                  red_parts_in_kit, blue_parts_in_kit, green_parts_in_kit)
     
-    planner.generate_plan()
+    planner.generate_plan(order)
 
 if __name__ == '__main__':
     main_func()
