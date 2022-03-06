@@ -9,5 +9,5 @@ from dataclasses import dataclass
 class AssemblyStation:
     """Assembly Station Class contains only id
     """
-    # di
+    # pylint: disable=invalid-name
     id : int
