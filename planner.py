@@ -15,16 +15,15 @@ from typing import Any
 from typing import List
 from agv import AGV
 from assembly_station import AssemblyStation
-from bin import Bin
-from constants import Const
-from robot_ceiling import RobotCeiling
-from robot_floor import RobotFloor
-
-from table import Table
-from tray import Tray
-from utility import print_partition
-from utility import print_success
-from utility import print_error
+from objects.bin import Bin
+from objects.table import Table
+from objects.tray import Tray
+from robots.robot_ceiling import RobotCeiling
+from robots.robot_floor import RobotFloor
+from misc.constants import Const
+from misc.utility import print_partition
+from misc.utility import print_success
+from misc.utility import print_error
 
 @dataclass
 class Planner:

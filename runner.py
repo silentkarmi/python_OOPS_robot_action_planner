@@ -5,7 +5,7 @@
 # Author @ Kartikeya Mishra
 
 from planner import Planner
-from utility import ask_for_order
+from misc.utility import ask_for_order
 
 def main_func():
     """This is the starting point of the program
