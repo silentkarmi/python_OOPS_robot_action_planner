@@ -6,7 +6,7 @@
 from typing import Any
 from typing import List
 from dataclasses import dataclass
-from misc.utility import print_error
+from utils.utility import print_error
 
 @dataclass
 class Bin:

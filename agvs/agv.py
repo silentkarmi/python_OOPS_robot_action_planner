@@ -4,9 +4,9 @@
 # Author @ Kartikeya Mishra
 
 from typing import Any
-from misc.constants import Const
+from utils.constants import Const
 
-from misc.utility import print_success
+from utils.utility import print_success
 
 class AGV:
     """This class for Automated Guided Vehicles.
@@ -58,7 +58,8 @@ class AGV:
             station (_type_): _description_
         """
         print_success(f"AGV={self.agv_id} contains {self.tray}")
-        print_success(f"{self.tray.type} contains following items: {self.tray.parts}")
+        if self.tray is not None:
+            print_success(f"{self.tray.type} contains following items: {self.tray.parts}")
         print_success(f"Shipped to Assembly Station: {station.id}")
 
     def __str__(self) -> str:

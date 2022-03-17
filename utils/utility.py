@@ -5,9 +5,9 @@ It also contains functions related to printing used throughout the code
 """
 
 from colorama import Fore
-from misc.constants import Const
+from utils.constants import Const
 from objects.part import Part
-from order import Order
+from orders.order import Order
 
 def print_error(text):
     """prints error

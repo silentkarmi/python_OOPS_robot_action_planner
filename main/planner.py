@@ -13,17 +13,17 @@ generate_plan : The algorithm is written in planner.py which in turn calls:
 from dataclasses import dataclass
 from typing import Any
 from typing import List
-from agv import AGV
-from assembly_station import AssemblyStation
+from agvs.agv import AGV
+from location.assembly_station import AssemblyStation
 from objects.bin import Bin
 from objects.table import Table
 from objects.tray import Tray
-from robots.robot_ceiling import RobotCeiling
-from robots.robot_floor import RobotFloor
-from misc.constants import Const
-from misc.utility import print_partition
-from misc.utility import print_success
-from misc.utility import print_error
+from robot.gantry_robot import GantryRobot
+from robot.linear_robot import LinearRobot
+from utils.constants import Const
+from utils.utility import print_normal, print_partition
+from utils.utility import print_success
+from utils.utility import print_error
 
 @dataclass
 class Planner:
@@ -41,8 +41,8 @@ class Planner:
     args_callbacks: List[Any]
 
     def __init__(self) -> None:
-        self.robot_gantry = RobotCeiling()
-        self.robot_ground = RobotFloor()
+        self.robot_gantry = GantryRobot("Gantry", 200, 50)
+        self.robot_ground = LinearRobot("UR10", 150, 50)
         self.table_yellow = Table(Tray(Const.TRAY_YELLOW))
         self.table_gray = Table(Tray(Const.TRAY_GRAY))
         self.agvs = []
@@ -72,8 +72,11 @@ class Planner:
         This list of actions were created when find_plan was called.
         """
         for (callback, arg) in zip(self.callbacks, self.args_callbacks):
-            print(callback.__qualname__, arg)
-            callback(arg)
+            # print_normal(f"{callback.__qualname__}({arg})\n")
+            if arg == "":
+                callback()
+            else:
+                callback(arg)
 
     def select_robot(self, bin_id):
         """This selects the desired robot in accordance with bin_id
@@ -117,13 +120,22 @@ class Planner:
 
         solution_found = True
 
+        self.store_callback(self.robot_gantry.gripper.activate_gripper, "")
         if order.tray_type == Const.TRAY_GRAY:
             self.store_callback(self.robot_gantry.pickup_tray, self.table_gray)
         elif order.tray_type == Const.TRAY_YELLOW:
             self.store_callback(self.robot_gantry.pickup_tray, self.table_yellow)
 
         agv_order = self.agvs[index(order.agv_id)]
+        self.store_callback(self.robot_gantry.gripper.deactivate_gripper, "")
         self.store_callback(self.robot_gantry.place_tray, agv_order)
+        
+        def plan_for_part(local_bin):
+            obj_robot = self.select_robot(local_bin.id)
+            self.store_callback(obj_robot.gripper.activate_gripper, "")
+            self.store_callback(obj_robot.pickup_part, local_bin)
+            self.store_callback(obj_robot.gripper.deactivate_gripper, "")
+            self.store_callback(obj_robot.place_part, agv_order)
 
         while order.red_parts:
             if order.red_parts != 0:
@@ -133,9 +145,7 @@ class Planner:
                     solution_found = False
                     return solution_found
                 else:
-                    robot = self.select_robot(obj_bin.id)
-                    self.store_callback(robot.pickup_part, obj_bin)
-                    self.store_callback(robot.place_part, agv_order)
+                    plan_for_part(obj_bin)
                     order.red_parts -= 1
 
         while order.green_parts:
@@ -146,9 +156,7 @@ class Planner:
                     solution_found = False
                     return solution_found
                 else:
-                    robot = self.select_robot(obj_bin.id)
-                    self.store_callback(robot.pickup_part, obj_bin)
-                    self.store_callback(robot.place_part, agv_order)
+                    plan_for_part(obj_bin)
                     order.green_parts -= 1
 
         while order.blue_parts:
@@ -159,9 +167,7 @@ class Planner:
                     solution_found = False
                     return solution_found
                 else:
-                    robot = self.select_robot(obj_bin.id)
-                    self.store_callback(robot.pickup_part, obj_bin)
-                    self.store_callback(robot.place_part, agv_order)
+                    plan_for_part(obj_bin)
                     order.blue_parts -= 1
 
         self.store_callback(agv_order.ship, self.as_stations[order.as_id - 1])
