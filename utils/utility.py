@@ -216,10 +216,10 @@ def ask_how_many_parts_in_tray(part_type):
     • The number of blue_part to put in the tray: Maximum is 2.
 
     Args:
-        part_type (_type_): _description_
+        part_type (str): ask for number of parts of that particular type
 
     Returns:
-        _type_: _description_
+        int: whatever the user has given input it returns that
     """
     # pylint: disable=no-else-return
 

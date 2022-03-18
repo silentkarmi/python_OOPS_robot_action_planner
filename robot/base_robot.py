@@ -68,6 +68,7 @@ class BaseRobot(ABC):
                 print_normal(f"place_part({self._name}, {agv.tray.type}, {self.gripper.object_held.type}, agv{agv.agv_id})\n")
                 agv.tray.parts.append(self.gripper.object_held)
                 self.gripper.object_held = None
+    
     @abstractmethod
     def dummy_function_to_make_class_abstract():
         pass

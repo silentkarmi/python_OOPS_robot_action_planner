@@ -2,6 +2,8 @@ from utils.utility import print_normal
 
 
 class Gripper:
+    """Gripper is part of the BaseRobot, because every robot has a gripper
+    """
     def __init__(self, name, weight = 2, closing_speed = 150) -> None:
         self._name = name
         self._weight = weight
@@ -25,12 +27,21 @@ class Gripper:
         self._object_held = some_object
     
     def activate_gripper(self):
+        """Activates the gripper
+        """
         print_normal(f"activate {self._name}\n")
         self._enable = True
     
     def deactivate_gripper(self):
+        """Deactivates the gripper
+        """
         print_normal(f"deactivate {self._name}\n")
         self._enable = False
         
     def is_gripper_empty(self):
+        """Tells if gripper is holding any object or not
+
+        Returns:
+            Any: It can contain either a Tray or a Part
+        """
         return self._object_held is None

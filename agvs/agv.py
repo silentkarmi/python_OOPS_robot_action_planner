@@ -12,7 +12,7 @@ class AGV:
     """This class for Automated Guided Vehicles.
 
     Returns:
-        _type_: Returns an AGV instance when called AGV(agv_id = <int_value>)
+        AGV() : Returns an AGV instance when called AGV(agv_id = <int_value>)
     """
     agv_id : int
     tray : Any
@@ -21,7 +21,7 @@ class AGV:
         """initializer for AVG
 
         Args:
-            agv_id (_type_): integer value to be provided
+            agv_id (int): integer value to be provided
         """
         self.agv_id = agv_id
         self.tray = None
@@ -34,10 +34,10 @@ class AGV:
         options which the agv supports
 
         Args:
-            station_id (_type_): Takes assembly station id as integer
+            station_id (int): Takes assembly station id as integer
 
         Returns:
-            _type_: Boolean true or false, if the station_id is supported or not
+            Bool: Boolean true or false, if the station_id is supported or not
         """
 
         flag = False
@@ -55,7 +55,7 @@ class AGV:
         And, when ship is called with the assembly station
 
         Args:
-            station (_type_): _description_
+            station (int): It's the assembly station it will be shipped to
         """
         print_success("kit is complete\n")
         print_success(f"shipping agv{self.agv_id} to as{station.id}\n")
