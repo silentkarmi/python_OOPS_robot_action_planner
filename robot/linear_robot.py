@@ -33,7 +33,5 @@ class LinearRobot(BaseRobot):
         
         self._linear_rail_length = 10
         
-    def dummy_function_to_make_class_abstract(self):
-        """abstract function
-        """
-        pass
+    def __str__(self):
+        return self._name

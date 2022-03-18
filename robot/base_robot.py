@@ -79,8 +79,6 @@ class BaseRobot(ABC):
                 self.gripper.object_held = None
 
     @abstractmethod
-    def dummy_function_to_make_class_abstract(self):
-        """to make the class abstract
-        """
-        pass
+    def __str__(self):
+        return self._name
     

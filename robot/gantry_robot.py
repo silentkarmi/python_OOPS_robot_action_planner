@@ -64,8 +64,6 @@ class GantryRobot(BaseRobot):
             agv.tray = self.gripper.object_held
             self.gripper.object_held = None
             
-    def dummy_function_to_make_class_abstract(self):
-        """abstract function
-        """
-        pass
+    def __str__(self):
+        return self._name
             
