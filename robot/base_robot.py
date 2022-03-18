@@ -57,7 +57,7 @@ class BaseRobot(ABC):
         Args:
             bin (Bin()): Bin object where the part is located
         """
-        if (self.gripper.is_gripper_empty() and 
+        if (self.gripper.is_gripper_empty() and
             self.gripper.enable and
             self._is_this_bin_supported(bin_obj.id)):
             self.gripper.object_held = bin_obj.get_part() # removes that part from the bin
