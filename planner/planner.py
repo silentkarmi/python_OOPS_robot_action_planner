@@ -112,7 +112,7 @@ class Planner:
 
         # pylint: disable=too-many-branches
         # store_callback is called repeatedly to store the callbacks
-        
+
         # pylint: disable=no-else-return
         # necessary to stop formulation plan and return to improve execution of the code
 
@@ -131,7 +131,7 @@ class Planner:
         agv_order = self.agvs[index(order.agv_id)]
         self.store_callback(self.robot_gantry.gripper.deactivate_gripper, "")
         self.store_callback(self.robot_gantry.place_tray, agv_order)
-        
+
         def plan_for_part(local_bin):
             obj_robot = self.select_robot(local_bin.id)
             self.store_callback(obj_robot.gripper.activate_gripper, "")
@@ -175,7 +175,7 @@ class Planner:
         self.store_callback(agv_order.ship, self.as_stations[order.as_id - 1])
 
         return solution_found
-    
+
     def generate_plan(self, order):
         """Generates the plan, if plan is found then executes as well.
 
@@ -205,7 +205,9 @@ class Planner:
         for obj_bin in self.bins:
             if obj_bin.type == part_type:
                 return obj_bin
-    
+
+        return None
+
     def which_bins_are_empty(self):
         """This searches for bins which are empty
 
@@ -216,6 +218,6 @@ class Planner:
         for obj_bin in self.bins:
             if not obj_bin.parts:
                 bins_availabe.append(obj_bin.id)
-        
+
         return bins_availabe
         

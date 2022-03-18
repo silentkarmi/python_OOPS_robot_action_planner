@@ -17,14 +17,17 @@ class BaseRobot(ABC):
     Returns:
         Robot(): returns a robot object
     """
+    # pylint: disable=too-many-arguments
+    # pylint: disable=line-too-long
+
     def __init__(self, name, payload, weight, gripper, bins, category="industrial") -> None:
         self._name = name
         self._category = category
         self._payload = payload
         self._weight = weight
         self._gripper = gripper
-        self._accessible_bins = bins 
-        
+        self._accessible_bins = bins
+
     @property
     def gripper(self):
         """Gripper Object in the Robot
@@ -33,7 +36,7 @@ class BaseRobot(ABC):
             Gripper(): Returns the gripper object contained in the Robot
         """
         return self._gripper
-    
+
     def _is_this_bin_supported(self, bin_id):
         """checks what bin it can take parts from
 
@@ -44,8 +47,7 @@ class BaseRobot(ABC):
             bool: returns True if the robot can reach to the bin
         """
         return bin_id in self._accessible_bins
-    
-    
+
     def pickup_part(self, bin_obj):
         """Picks up part from the bin
 
@@ -75,9 +77,10 @@ class BaseRobot(ABC):
                 print_normal(f"place_part({self._name}, {agv.tray.type}, {self.gripper.object_held.type}, agv{agv.agv_id})\n")
                 agv.tray.parts.append(self.gripper.object_held)
                 self.gripper.object_held = None
-    
+
     @abstractmethod
     def dummy_function_to_make_class_abstract(self):
         """to make the class abstract
         """
         pass
+    
