@@ -5,10 +5,11 @@
 # Author @ Kartikeya Mishra
 
 from dataclasses import dataclass
-from utils.utility import print_error
+from utils.utility import print_error, print_normal
+from abc import ABC, abstractmethod
 
 @dataclass
-class BaseRobot():
+class BaseRobot(ABC):
     """Robot class
 
     Returns:
@@ -47,7 +48,8 @@ class BaseRobot():
         if (self.gripper.is_gripper_empty() and 
             self.gripper.enable and
             self._is_this_bin_supported(bin_obj.id)):
-            self.gripper.object_held = bin_obj.get_part()
+            self.gripper.object_held = bin_obj.get_part() # removes that part from the bin
+            print_normal(f"pickup_part({self._name}, bin{bin_obj.id}, {self.gripper.object_held.type})\n")
         else:
             print_error("Gripper is holding a object already or gripper not activated yet or bin not supported.")
 
@@ -63,5 +65,9 @@ class BaseRobot():
             if agv is None or agv.tray is None:
                 print_error("No Tray Found!")
             else:
+                print_normal(f"place_part({self._name}, {agv.tray.type}, {self.gripper.object_held.type}, agv{agv.agv_id})\n")
                 agv.tray.parts.append(self.gripper.object_held)
                 self.gripper.object_held = None
+    @abstractmethod
+    def dummy_function_to_make_class_abstract():
+        pass

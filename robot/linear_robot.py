@@ -27,7 +27,10 @@ class LinearRobot(BaseRobot):
     def __init__(self, name, payload, weight, bins = [1, 2], category="industrial") -> None:
         """call the base constructor for the Robot()
         """
-        gripper = Gripper(self.name + "_gripper")
+        gripper = Gripper(name + "_gripper")
         super().__init__(name, payload, weight, gripper, bins, category="industrial")
         
         self._linear_rail_length = 10
+        
+    def dummy_function_to_make_class_abstract():
+        pass

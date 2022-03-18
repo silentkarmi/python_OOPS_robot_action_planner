@@ -18,6 +18,7 @@ from location.assembly_station import AssemblyStation
 from objects.bin import Bin
 from objects.table import Table
 from objects.tray import Tray
+from robot.base_robot import BaseRobot
 from robot.gantry_robot import GantryRobot
 from robot.linear_robot import LinearRobot
 from utils.constants import Const
@@ -41,6 +42,7 @@ class Planner:
     args_callbacks: List[Any]
 
     def __init__(self) -> None:
+        # BaseRobot() Can't be initialized because it's an abstract class
         self.robot_gantry = GantryRobot("Gantry", 200, 50)
         self.robot_ground = LinearRobot("UR10", 150, 50)
         self.table_yellow = Table(Tray(Const.TRAY_YELLOW))

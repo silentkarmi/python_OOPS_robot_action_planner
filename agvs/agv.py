@@ -6,7 +6,7 @@
 from typing import Any
 from utils.constants import Const
 
-from utils.utility import print_success
+from utils.utility import print_partition, print_success
 
 class AGV:
     """This class for Automated Guided Vehicles.
@@ -57,10 +57,12 @@ class AGV:
         Args:
             station (_type_): _description_
         """
-        print_success(f"AGV={self.agv_id} contains {self.tray}")
+        print_success("kit is complete\n")
+        print_success(f"shipping agv{self.agv_id} to as{station.id}\n")
+        print_partition()
+        print_success(f"agv{self.agv_id} contains {self.tray}\n")
         if self.tray is not None:
-            print_success(f"{self.tray.type} contains following items: {self.tray.parts}")
-        print_success(f"Shipped to Assembly Station: {station.id}")
+            print_success(f"{self.tray.type} contains following items: {self.tray.parts}\n")
 
     def __str__(self) -> str:
         return f"AGV(id={str(self.agv_id)})"

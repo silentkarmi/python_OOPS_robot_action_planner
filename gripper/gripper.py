@@ -1,3 +1,6 @@
+from utils.utility import print_normal
+
+
 class Gripper:
     def __init__(self, name, weight = 2, closing_speed = 150) -> None:
         self._name = name
@@ -22,9 +25,11 @@ class Gripper:
         self._object_held = some_object
     
     def activate_gripper(self):
+        print_normal(f"activate {self._name}\n")
         self._enable = True
     
     def deactivate_gripper(self):
+        print_normal(f"deactivate {self._name}\n")
         self._enable = False
         
     def is_gripper_empty(self):

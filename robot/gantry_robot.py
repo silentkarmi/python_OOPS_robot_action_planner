@@ -5,6 +5,7 @@
 
 from dataclasses import dataclass
 from gripper.gripper import Gripper
+from utils.utility import print_normal
 from utils.utility import print_error
 from robot.base_robot import BaseRobot
 
@@ -28,7 +29,7 @@ class GantryRobot(BaseRobot):
     def __init__(self, name, payload, weight, bins = [3, 4], category="industrial") -> None:
         """call the base constructor for the Robot()
         """
-        gripper = Gripper(self.name + "_gripper")
+        gripper = Gripper(name + "_gripper")
         super().__init__(name, payload, weight, gripper, bins, category="industrial")
         
         self._small_rail_length = 12
@@ -46,6 +47,7 @@ class GantryRobot(BaseRobot):
         if (self.gripper.is_gripper_empty() and 
             self.gripper.enable):
             self.gripper.object_held = table.get_tray()
+            print_normal(f"pickup_tray({self._name}, {self.gripper.object_held.type}, table)\n")
         else:
             print_error("Gripper is holding a object already or gripper not activated yet.")
 
@@ -58,6 +60,10 @@ class GantryRobot(BaseRobot):
         if self.gripper.object_held is None:
             print_error("Nothing to place")
         else:
+            print_normal(f"place_tray({self._name}, {self.gripper.object_held.type}, agv{agv.agv_id})\n")
             agv.tray = self.gripper.object_held
             self.gripper.object_held = None
+            
+    def dummy_function_to_make_class_abstract():
+        pass
             
