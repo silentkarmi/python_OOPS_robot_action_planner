@@ -1,5 +1,5 @@
 # rwa2_mishra_k
-This is the rwa1 assignment for ENPM - 809E
+This is the rwa2 assignment for ENPM - 809E
 ------------------------------------------------
 >> Program main starts from : main.py
 >> FLow of Code in runner.py
