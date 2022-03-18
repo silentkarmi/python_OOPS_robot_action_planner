@@ -4,6 +4,9 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from abc import ABC, abstractmethod
 
 from dataclasses import dataclass

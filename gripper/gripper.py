@@ -1,3 +1,6 @@
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from utils.utility import print_normal
 
 class Gripper:

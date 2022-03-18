@@ -3,6 +3,9 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from dataclasses import dataclass
 from gripper.gripper import Gripper
 from utils.utility import print_normal
@@ -24,14 +27,16 @@ class GantryRobot(BaseRobot):
     Returns:
         GantryRobot(): creates an instance of GantryRobot
     """
+    # pylint: disable=too-many-arguments
     # pylint: disable=useless-super-delegation
-    
-    def __init__(self, name, payload, weight, bins = [3, 4], category="industrial") -> None:
+    # pylint: disable=dangerous-default-value
+
+    def __init__(self, name, payload, weight, bins = [3, 4]) -> None:
         """call the base constructor for the Robot()
         """
         gripper = Gripper(name + "_gripper")
         super().__init__(name, payload, weight, gripper, bins, category="industrial")
-        
+
         self._small_rail_length = 12
         self._long_rail_length = 20
         self._small_rail_height = 5
@@ -43,8 +48,8 @@ class GantryRobot(BaseRobot):
 
         Args:
             table (Table()): Table object which contains the tray
-        """ 
-        if (self.gripper.is_gripper_empty() and 
+        """
+        if (self.gripper.is_gripper_empty() and
             self.gripper.enable):
             self.gripper.object_held = table.get_tray()
             print_normal(f"pickup_tray({self._name}, {self.gripper.object_held.type}, table)\n")

@@ -3,6 +3,9 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from typing import Any
 from utils.constants import Const
 from utils.utility import print_partition, print_success

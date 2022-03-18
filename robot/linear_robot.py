@@ -3,8 +3,10 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from dataclasses import dataclass
-from utils.utility import print_error
 from robot.base_robot import BaseRobot
 from gripper.gripper import Gripper
 
@@ -25,13 +27,14 @@ class LinearRobot(BaseRobot):
     # pylint: disable=useless-super-delegation
     # pylint: disable=dangerous-default-value
 
-    def __init__(self, name, payload, weight, bins = [1, 2], category="industrial") -> None:
+    def __init__(self, name, payload, weight, bins = [1, 2]) -> None:
         """call the base constructor for the Robot()
         """
         gripper = Gripper(name + "_gripper")
         super().__init__(name, payload, weight, gripper, bins, category="industrial")
-        
+
         self._linear_rail_length = 10
-        
+
     def __str__(self):
         return self._name
+    

@@ -10,6 +10,9 @@ generate_plan : The algorithm is written in planner.py which in turn calls:
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from dataclasses import dataclass
 from typing import Any
 from typing import List
@@ -18,13 +21,10 @@ from location.assembly_station import AssemblyStation
 from objects.bin import Bin
 from objects.table import Table
 from objects.tray import Tray
-from robot.base_robot import BaseRobot
 from robot.gantry_robot import GantryRobot
 from robot.linear_robot import LinearRobot
 from utils.constants import Const
-from utils.utility import print_normal, print_partition
-from utils.utility import print_success
-from utils.utility import print_error
+from utils.utility import print_success, print_error, print_partition
 
 @dataclass
 class Planner:

@@ -4,6 +4,9 @@ It contatins functions used to ask for order.
 It also contains functions related to printing used throughout the code
 """
 
+# pylint: disable=no-name-in-module
+# pylint: disable=import-error
+
 from colorama import Fore
 from utils.constants import Const
 from objects.part import Part
