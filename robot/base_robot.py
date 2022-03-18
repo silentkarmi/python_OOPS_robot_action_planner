@@ -4,9 +4,11 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
+from abc import ABC, abstractmethod
+
 from dataclasses import dataclass
 from utils.utility import print_error, print_normal
-from abc import ABC, abstractmethod
+
 
 @dataclass
 class BaseRobot(ABC):
@@ -25,6 +27,11 @@ class BaseRobot(ABC):
         
     @property
     def gripper(self):
+        """Gripper Object in the Robot
+
+        Returns:
+            Gripper(): Returns the gripper object contained in the Robot
+        """
         return self._gripper
     
     def _is_this_bin_supported(self, bin_id):
@@ -70,5 +77,7 @@ class BaseRobot(ABC):
                 self.gripper.object_held = None
     
     @abstractmethod
-    def dummy_function_to_make_class_abstract():
+    def dummy_function_to_make_class_abstract(self):
+        """to make the class abstract
+        """
         pass

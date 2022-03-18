@@ -1,6 +1,5 @@
 from utils.utility import print_normal
 
-
 class Gripper:
     """Gripper is part of the BaseRobot, because every robot has a gripper
     """
@@ -16,10 +15,20 @@ class Gripper:
     
     @property
     def enable(self):
+        """Returns the activate state of the girpper
+
+        Returns:
+            bool: True or False
+        """
         return self._enable
     
     @property
     def object_held(self):
+        """Object held by the gripper
+
+        Returns:
+            Any: It returns the object held which can be part or tray
+        """
         return self._object_held
     
     @object_held.setter

@@ -5,7 +5,6 @@
 
 from typing import Any
 from utils.constants import Const
-
 from utils.utility import print_partition, print_success
 
 class AGV:

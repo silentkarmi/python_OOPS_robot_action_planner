@@ -23,6 +23,7 @@ class LinearRobot(BaseRobot):
         LinearRobot(): creates an instance of LinearRobot
     """
     # pylint: disable=useless-super-delegation
+    # pylint: disable=dangerous-default-value
 
     def __init__(self, name, payload, weight, bins = [1, 2], category="industrial") -> None:
         """call the base constructor for the Robot()
@@ -32,5 +33,7 @@ class LinearRobot(BaseRobot):
         
         self._linear_rail_length = 10
         
-    def dummy_function_to_make_class_abstract():
+    def dummy_function_to_make_class_abstract(self):
+        """abstract function
+        """
         pass

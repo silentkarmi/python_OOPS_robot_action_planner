@@ -91,8 +91,7 @@ def ask_for_order(planner):
 
     print_partition()
 
-    order = Order(agv_id, as_id, tray_type, 
-                  red_parts_in_kit, green_parts_in_kit, blue_parts_in_kit)
+    order = Order(agv_id, as_id, tray_type, red_parts_in_kit, green_parts_in_kit, blue_parts_in_kit)
 
     return order
 
